@@ -25,4 +25,8 @@ public class ItemService {
 	public List<Items> getAllItems(){
 		return itemRepository.findAll();
 	}
+	
+	public void deleteItem(Integer id) {
+		itemRepository.delete(getItemById(id));
+	}
 }
