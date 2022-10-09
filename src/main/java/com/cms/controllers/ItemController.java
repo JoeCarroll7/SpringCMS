@@ -1,5 +1,7 @@
 package com.cms.controllers;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +14,7 @@ import com.cms.services.ItemService;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-@Controller("/items")
+@Controller
 public class ItemController {
 	private final ItemService itemService;
 	
@@ -27,4 +29,11 @@ public class ItemController {
 		itemService.addItemToSystem(item);
 		return "addItem";
 	}
+	
+	@GetMapping("/items")
+	public String listAllItems(Model model){
+		model.addAttribute("items", itemService.getAllItems());
+		return "listAllItems";
+	}
+	
 }
