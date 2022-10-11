@@ -1,5 +1,6 @@
 package com.cms.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -28,5 +29,10 @@ public class ItemService {
 	
 	public void deleteItem(Integer id) {
 		itemRepository.delete(getItemById(id));
+	}
+	
+	public void addItemToOrder() {
+		ArrayList<Items> orderList = new ArrayList<Items>();
+		
 	}
 }

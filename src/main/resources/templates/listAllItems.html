@@ -26,10 +26,19 @@
 			<textarea style="width: 400px; height: 250px" th:text="${item.description}"></textarea>
 		  
 		  <div class="col text-center">
+		  	<a th:href="@{/items/order/{id}(id=${item.id})}">
+		  		<button class="position-relative btn btn-primary mt-3 mb-3" id="btn">Add to order</button>
+		  	</a>
+		  </div>
+		  
+		  <div class="col text-center">
 		  	<a th:href="@{/items/{id}(id=${item.id})}">
 		  		<button class="position-relative btn btn-danger mt-3 mb-3" id="btn">Delete item</button>
 		  	</a>
 		  </div>
+		  
+		   
+		  
 	</div>
 
 	<div th:replace="fragments/footer"></div>

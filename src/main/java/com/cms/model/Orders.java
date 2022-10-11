@@ -15,4 +15,6 @@ public class Orders {
 	Integer id;
 	String description;
 	String deliveryAddress;
+	boolean orderCompleted;
+	String orderedBy;
 }

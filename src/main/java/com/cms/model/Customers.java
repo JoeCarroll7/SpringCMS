@@ -18,4 +18,5 @@ public class Customers {
 	String phoneNumber;
 	String email;
 	String orders;
+	Integer openOrder;
 }
