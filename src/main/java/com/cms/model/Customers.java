@@ -15,10 +15,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Table
 @Entity
+@NoArgsConstructor
 public class Customers implements UserDetails {
 		
 	@Id @GeneratedValue

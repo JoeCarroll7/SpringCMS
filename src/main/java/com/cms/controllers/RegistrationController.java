@@ -38,12 +38,12 @@ public class RegistrationController {
 		return "redirect:/login";
 		
 	}
-	/*                                                              
+	                                                       
 	@GetMapping(path = "registration/confirm")
 	public String confirm(@RequestParam("token") String token) {
 		registrationService.confirmToken(token);
 		System.out.println("confirm ran");
 		return "registered";
 	}
-	*/
+	
 }

@@ -9,10 +9,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-//import com.cms.model.ConfirmationToken;
+import com.cms.model.ConfirmationToken;
 import com.cms.model.Customers;
 import com.cms.repositories.CustomerRepository;
-//import com.cms.services.ConfirmationTokenService;
 
 import lombok.AllArgsConstructor;
 
@@ -22,7 +21,7 @@ public class CustomerService implements UserDetailsService {
 	
 	private final CustomerRepository customerRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
-	//private final ConfirmationTokenService confirmationTokenService;
+	private final ConfirmationTokenService confirmationTokenService;
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -35,7 +34,7 @@ public class CustomerService implements UserDetailsService {
 		boolean userExists = customerRepository
 				.findByEmail(customer.getEmail())
 				.isPresent();
-		/*
+		
 		ConfirmationToken confirmationTester = new ConfirmationToken();
 		
 		if (userExists) {
@@ -43,11 +42,11 @@ public class CustomerService implements UserDetailsService {
 				throw new IllegalStateException("Email already exists");
 			}						
 		}else{
-			String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+			String encodedPassword = bCryptPasswordEncoder.encode(customer.getPassword());
 			
-			user.setPassword(encodedPassword);
+			customer.setPassword(encodedPassword);
 			
-			userRepository.save(user);
+			customerRepository.save(customer);
 		}
 		
 		String token = UUID.randomUUID().toString();
@@ -55,26 +54,16 @@ public class CustomerService implements UserDetailsService {
 				token,
 				LocalDateTime.now(),
 				LocalDateTime.now().plusMinutes(15),
-				user
+				customer
 		);
 		
 		confirmationTokenService.saveConfirmationToken(confirmationToken);
 		
-		public int enableAppUser(String email) {
-        	return customerRepository.enableCustomer(email);
-    	}
-		
-		*/
-		
-		String encodedPassword = bCryptPasswordEncoder.encode(customer.getPassword());
-		
-		customer.setPassword(encodedPassword);
-		
-		customerRepository.save(customer);
-		
-		return "";
+		return token;
 	}
 	
-	
+	public int enableCustomer(String email) {
+    	return customerRepository.enableCustomer(email);
+	}
 
 }

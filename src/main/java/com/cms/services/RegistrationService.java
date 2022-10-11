@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.cms.model.Customers;
 import com.cms.model.UserRole;
 import com.cms.services.CustomerService;
-//import com.cms.model.ConfirmationToken;
+import com.cms.model.ConfirmationToken;
 import com.cms.model.RegistrationRequest;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ import lombok.AllArgsConstructor;
 public class RegistrationService {
 	
 	private final CustomerService customerService;
-	//private final ConfirmationTokenService confirmationTokenService;
+	private final ConfirmationTokenService confirmationTokenService;
 	//private final EmailValidation emailValidator;
 	private final EmailService emailService;
 	
@@ -39,12 +39,12 @@ public class RegistrationService {
 				UserRole.USER
 			)
 		);
-		String link = "http://localhost:8080/posts/registration/confirm?token=" + token;
+		String link = "http://localhost:8080/registration/confirm?token=" + token;
 		emailService.send(request.getEmail(), buildEmail(request.getName(), link));
 		//emailSender.testEmail(request.getEmail(), buildEmail(request.getFirstName(), link));
-		return "";
+		return token;
 	}
-	/*
+	
 	@Transactional
 	public String confirmToken(String token) {
 		ConfirmationToken confirmationToken = confirmationTokenService
@@ -63,10 +63,10 @@ public class RegistrationService {
 		}
 		
 		confirmationTokenService.setConfirmedAt(token);
-		userService.enableAppUser(confirmationToken.getUser().getEmail());
+		customerService.enableCustomer(confirmationToken.getUser().getEmail());
 		return "user confirmed";
 	}
-	*/
+	
 	private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
