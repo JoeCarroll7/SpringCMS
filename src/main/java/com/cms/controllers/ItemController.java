@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.cms.model.Items;
 import com.cms.services.ItemService;
+import com.cms.services.OrderService;
 
 import lombok.AllArgsConstructor;
 
@@ -18,6 +19,7 @@ import lombok.AllArgsConstructor;
 @Controller
 public class ItemController {
 	private final ItemService itemService;
+	private final OrderService orderService;
 	
 	@GetMapping("/items/addItem")
 	public String getAddItem(Model model) {
@@ -35,6 +37,11 @@ public class ItemController {
 	public String listAllItems(Model model){
 		model.addAttribute("items", itemService.getAllItems());
 		return "listAllItems";
+	}
+	
+	@PostMapping("/items/order/{id}")
+	public void addItemToOrder(@PathVariable Integer id) {
+		
 	}
 	
 	@GetMapping("/items/{id}")
